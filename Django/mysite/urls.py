@@ -23,5 +23,7 @@ urlpatterns = [
     path('save_car/', save_car),
     path('update_car/<int:id>', update_car),
     path('delete_car/<int:id>', delete_car),
-    path('hello/', say_hello)
+    path('hello/', say_hello),
+    path('form/', get_name)
 ]
+
