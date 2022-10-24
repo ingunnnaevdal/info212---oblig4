@@ -6,7 +6,7 @@ class Car(models.Model):
     carmodel = models.CharField(max_length= 50)
     year = models.PositiveIntegerField()
     location = models.CharField(max_length = 50)
-    status = models.BooleanField(default = True)
+    status = models.CharField(max_length = 50)
 
     def __str__(self):
         return f"{self.make} {self.carmodel} {self.year} {self.location} {self.status}"
