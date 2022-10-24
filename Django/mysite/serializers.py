@@ -19,11 +19,13 @@ class CarSerializer(
 Serializers package and unpack data when it goes between servers and databases.
 """
 
-from rest_framework import serializers
-from .models import Car
+
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
-        fields = ['id', 'make', 'carmodel']
+        fields = ['id', 'make', 'carmodel', 'year', 'location', 'status']
+
+
+        
 

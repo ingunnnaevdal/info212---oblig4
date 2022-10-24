@@ -10,16 +10,15 @@ from django.http import HttpResponse
 from .forms import NameForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+import pdb
 
 
 @api_view(['GET'])
 def get_cars(request):
-    serializer = CarSerializer(data=request.data)
-    if serializer.is_valid():
-        print(serializer.data)
-        return Response(serializer.data, status = status.HTTP_200_OK)
-    else:
-        return Response(serializer.data, status = status.HTTP_404_NOT_FOUND)
+    cars = Car.objects.all()
+    serializer = CarSerializer(cars, many=True)
+    print(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def save_car(request):
@@ -33,7 +32,7 @@ def update_car(request, id):
     try:
         theCar = Car.objects.get(pk=id)
     except Car.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)    
     serializer = CarSerializer(theCar, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -46,7 +45,7 @@ def delete_car(request, id):
     try:
         theCar = Car.objects.get(pk=id)
     except Car.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)    
     theCar.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -75,3 +74,5 @@ def get_name(request):
         form = NameForm()
 
     return render(request, 'name.html', {'form': form})
+
+# ------------------------------------------------------------------------

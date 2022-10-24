@@ -34,3 +34,13 @@ https://stackoverflow.com/questions/34548768/no-such-table-exception
 
 Sometimes deleting the sql-database helps. 
 """
+
+"""
+" No such table error "
+
+Delete database
+python manage.py makemigrations
+python manage.py migrate
+python manage.py --run-syncdb
+
+"""

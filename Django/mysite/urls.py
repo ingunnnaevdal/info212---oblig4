@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import *
+from .views import get_cars
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('update_car/<int:id>', update_car),
     path('delete_car/<int:id>', delete_car),
     path('hello/', say_hello),
-    path('form/', get_name)
+    path('form/', get_name), # Form for filling out information about user
 ]
+
 
