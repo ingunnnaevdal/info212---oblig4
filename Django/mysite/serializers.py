@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Car
+from .models import Car, Customer
 
 """
 In this file we describe the process of transforming a python object to JSON
@@ -26,6 +26,9 @@ class CarSerializer(serializers.ModelSerializer):
         model = Car
         fields = ['id', 'make', 'carmodel', 'year', 'location', 'status']
 
-
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['id', 'name', 'address', 'age', 'status', 'ordered_car']
         
 
