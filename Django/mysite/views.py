@@ -1,16 +1,11 @@
 #  mysite/views.py
 
-from .models import Car
+from .models import Car, Customer, Employee
 from rest_framework.response import Response
-from .serializers import CarSerializer
+from .serializers import CarSerializer, CustomerSerializer
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from django.http import HttpResponse
-from .forms import NameForm
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-import pdb
 
 
 @api_view(['GET'])
@@ -50,29 +45,44 @@ def delete_car(request, id):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-def say_hello(request):
-    return HttpResponse("Hello World")
+# Customer views:
+
+@api_view(['GET'])
+def get_customer(request):
+    customer = Customer.objects.all()
+    serializer = CustomerSerializer(customer, many=True)
+    print(serializer.data)
+    print(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def save_customer(request):
+    serializer = CustomerSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
-
-
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
+@api_view(['PUT'])
+def update_customer(request, id):
+    try:
+        theCustomer = Customer.objects.get(pk=id)
+    except Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)    
+    serializer = CustomerSerializer(theCustomer, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
     else:
-        form = NameForm()
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    return render(request, 'name.html', {'form': form})
 
-# ------------------------------------------------------------------------
+@api_view(['DELETE'])
+def delete_customer(request, id):
+    try:
+        theCustomer = Customer.objects.get(pk=id)
+    except Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)    
+    theCustomer.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
