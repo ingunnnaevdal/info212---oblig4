@@ -79,7 +79,7 @@ def order_car(request, customerID, carID):
         customer.ordered_car = carID
     car_serializer = CarSerializer(car)
     customer_serializer = CustomerSerializer(customer)
-    return Response(car_serializer.data, customer_serializer.data, status = status.HTTP_200_OK)
+    return Response(car_serializer.data, status = status.HTTP_200_OK)
 
 def say_hello(request):
     return HttpResponse("Hello World")

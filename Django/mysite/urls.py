@@ -27,7 +27,7 @@ urlpatterns = [
     path('delete_car/<int:id>', delete_car),
     path('hello/', say_hello),
     path('form/', get_name), # Form for filling out information about user
-    path('order_car/<int:customerID>/<int:carID>', order_car),
+    path('order_car/<int:customerID>/<int:carID>/', order_car),
     #Customer mangler?
     #Employee mangler?
 ]
