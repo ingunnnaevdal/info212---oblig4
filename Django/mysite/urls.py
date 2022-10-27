@@ -22,8 +22,8 @@ urlpatterns = [
 
     path('cars/', get_cars),
     path('save_car/', save_car),
-    path('update_car/<int:id>', update_car),
-    path('delete_car/<int:id>', delete_car),
+    path('update_car/<int:id>/', update_car),
+    path('delete_car/<int:id>/', delete_car),
 
     path('customers/', get_customers),
     path('register_customer/', save_customer),
@@ -31,6 +31,9 @@ urlpatterns = [
     path('delete_customer/<int:id>', delete_customer),
 
     path('order_car/<int:customerID>/<int:carID>/', order_car),
+    path('cancel_order_car/<int:customerID>/<int:carID>/', cancel_order_car),
+    path('rent_car/<int:customerID>/<int:carID>/', cancel_order_car),
+    path('rent_car/<int:customerID>/<int:carID>/<str:carstatus>/', cancel_order_car), #FUNKER IKKE
 ]
 
 

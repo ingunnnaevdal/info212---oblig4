@@ -30,8 +30,6 @@ class Customer(models.Model):
     name = models.CharField(max_length= 50)
     address = models.CharField(max_length= 50)
     age = models.PositiveIntegerField()
-    status = models.BooleanField(default = False) #True if the customer has ordered a car
-    ordered_car = models.PositiveIntegerField(default = 0) #regner med ingen biler har id=0?
 
     def __str__(self):
         return f"{self.name} {self.address} {self.age} {self.status} {self.ordered_car}"

@@ -116,3 +116,53 @@ def order_car(request, customerID, carID):
         customerbookedcar.update({customer.id : car.id})
     car_serializer = CarSerializer(car)
     return Response(car_serializer.data, status = status.HTTP_200_OK)
+
+#Funker sett bort fra at det ikke blir lagret at car er available
+@api_view(['GET'])
+def cancel_order_car(request, customerID, carID):
+    global customerbookedcar
+    try:
+        car = Car.objects.get(pk=carID)
+        customer = Customer.objects.get(pk=customerID)
+    except Car.DoesNotExist or Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if customerbookedcar[customer.id == car.id]:
+        car.status = "available"
+        del customerbookedcar[customer.id]
+    car_serializer = CarSerializer(car)
+    return Response(car_serializer.data, status = status.HTTP_200_OK)
+
+@api_view(['GET'])
+def rent_car(request, customerID, carID):
+    global customerbookedcar
+    try:
+        car = Car.objects.get(pk=carID)
+        customer = Customer.objects.get(pk=customerID)
+    except Car.DoesNotExist or Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if customerbookedcar[customer.id == car.id]:
+        car.status = "rented"  #ser ikke ut som dette funker
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    car_serializer = CarSerializer(car)
+    return Response(car_serializer.data, status = status.HTTP_200_OK)
+
+@api_view(['GET'])
+def return_car(request, customerID, carID, carstatus): #FEILER I urls.py
+    global customerbookedcar
+    try:
+        car = Car.objects.get(pk=carID)
+        customer = Customer.objects.get(pk=customerID)
+    except Car.DoesNotExist or Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if customerbookedcar[customer.id == car.id]:
+        del customerbookedcar[customer.id]
+        if carstatus == "damaged":
+            car.status = "damaged"
+        elif carstatus == "ok":
+            car.status = "available"
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+    car_serializer = CarSerializer(car)
+    return Response(car_serializer.data, status = status.HTTP_200_OK)
+
