@@ -129,6 +129,7 @@ def cancel_order_car(request, customerID, carID):
         return Response(status=status.HTTP_404_NOT_FOUND)
     if customerbookedcar[customer.id == car.id]:
         car.status = "available"
+        car.save()
         del customerbookedcar[customer.id]
     car_serializer = CarSerializer(car)
     return Response(car_serializer.data, status = status.HTTP_200_OK)
@@ -160,10 +161,12 @@ def return_car(request, customerID, carID, carstatus): #FEILER I urls.py
         del customerbookedcar[customer.id]
         if carstatus == "damaged":
             car.status = "damaged"
+            car.save()
         elif carstatus == "ok":
             car.status = "available"
+            car.save()
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-    car_serializer = CarSerializer(car)
-    return Response(car_serializer.data, status = status.HTTP_200_OK)
+        car_serializer = CarSerializer(car)
+        return Response(car_serializer.data, status = status.HTTP_200_OK)
 
