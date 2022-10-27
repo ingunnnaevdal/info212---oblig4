@@ -4,8 +4,10 @@ from .models import Car, Customer, Employee
 from rest_framework.response import Response
 from .serializers import CarSerializer, CustomerSerializer
 from rest_framework import status
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import api_view
+from django.shortcuts import render # new
+
 
 customerbookedcar = {}
 
@@ -169,4 +171,9 @@ def return_car(request, customerID, carID, carstatus): #FEILER I urls.py
             return Response(status=status.HTTP_400_BAD_REQUEST)
         car_serializer = CarSerializer(car)
         return Response(car_serializer.data, status = status.HTTP_200_OK)
+
+
+
+def homePageView(request):
+    return render(request, 'links.html')
 

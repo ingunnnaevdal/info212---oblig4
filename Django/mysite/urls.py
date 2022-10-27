@@ -34,6 +34,8 @@ urlpatterns = [
     path('cancel_order_car/<int:customerID>/<int:carID>/', cancel_order_car),
     path('rent_car/<int:customerID>/<int:carID>/', cancel_order_car),
     path('rent_car/<int:customerID>/<int:carID>/<str:carstatus>/', cancel_order_car), #FUNKER IKKE
+    
+    path("", homePageView, name="home"),
 ]
 
 
