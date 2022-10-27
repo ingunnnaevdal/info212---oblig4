@@ -113,6 +113,7 @@ def order_car(request, customerID, carID):
         return Response(status=status.HTTP_400_BAD_REQUEST)
     if car.status == 'available' or car.status == 'Available':
         car.status = "booked"
+        car.save()
         customerbookedcar.update({customer.id : car.id})
     car_serializer = CarSerializer(car)
     return Response(car_serializer.data, status = status.HTTP_200_OK)
