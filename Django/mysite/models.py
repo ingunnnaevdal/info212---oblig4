@@ -9,8 +9,13 @@ class Car(models.Model):
     location = models.CharField(max_length = 50)
     status = models.CharField(max_length = 50)
 
+
     def __str__(self):
         return f"{self.make} {self.carmodel} {self.year} {self.location} {self.status}"
+
+"""
+Prøv å gjør endringer til Car slik at du kan velge at den skal ha en user. Dette kan løse problemet med at bilen skal bli ledig.
+"""
 
 class Employee(models.Model):
     name = models.CharField(max_length= 50)
@@ -32,7 +37,9 @@ class Customer(models.Model):
         return f"{self.name} {self.address} {self.age} {self.status} {self.ordered_car}"
     
 
+
     # make and model are attributes where we can store strings.
     # The __str__ method just tells Django what to print when it
     # needs to print out an instance of the carmodel
+
 

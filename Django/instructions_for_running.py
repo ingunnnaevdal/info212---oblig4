@@ -27,7 +27,7 @@ Run this script:
     python manage.py migrate
     
 If not working try this:
-    manage.py migrate --run-syncdb
+    python manage.py migrate --run-syncdb
     
 For further issues try this link:
 https://stackoverflow.com/questions/34548768/no-such-table-exception

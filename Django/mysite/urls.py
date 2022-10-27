@@ -16,20 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import *
-from .views import get_cars
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('cars/', get_cars),
-    path('customers/', get_customers),
     path('save_car/', save_car),
     path('update_car/<int:id>', update_car),
     path('delete_car/<int:id>', delete_car),
-    path('hello/', say_hello),
-    path('form/', get_name), # Form for filling out information about user
+
+    path('customers/', get_customers),
+    path('register_customer/', save_customer),
+    path('update_customer/<int:id>', update_customer),
+    path('delete_customer/<int:id>', delete_customer),
+
     path('order_car/<int:customerID>/<int:carID>/', order_car),
-    #Customer mangler?
-    #Employee mangler?
 ]
 
 
