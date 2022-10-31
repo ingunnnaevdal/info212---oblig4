@@ -102,7 +102,6 @@ def delete_customer(request, id):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-#Funker sett bort fra at det ikke blir lagret at car er booked
 @api_view(['GET'])
 def order_car(request, customerID, carID):
     global customerbookedcar
@@ -120,7 +119,7 @@ def order_car(request, customerID, carID):
     car_serializer = CarSerializer(car)
     return Response(car_serializer.data, status = status.HTTP_200_OK)
 
-#Funker sett bort fra at det ikke blir lagret at car er available
+
 @api_view(['GET'])
 def cancel_order_car(request, customerID, carID):
     global customerbookedcar
@@ -136,6 +135,7 @@ def cancel_order_car(request, customerID, carID):
     car_serializer = CarSerializer(car)
     return Response(car_serializer.data, status = status.HTTP_200_OK)
 
+
 @api_view(['GET'])
 def rent_car(request, customerID, carID):
     global customerbookedcar
@@ -145,14 +145,16 @@ def rent_car(request, customerID, carID):
     except Car.DoesNotExist or Customer.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if customerbookedcar[customer.id == car.id]:
-        car.status = "rented"  #ser ikke ut som dette funker
+        car.status = "rented"
+        car.save()
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     car_serializer = CarSerializer(car)
     return Response(car_serializer.data, status = status.HTTP_200_OK)
 
+
 @api_view(['GET'])
-def return_car(request, customerID, carID, carstatus): #FEILER I urls.py
+def return_car(request, customerID, carID, carstatus):
     global customerbookedcar
     try:
         car = Car.objects.get(pk=carID)
@@ -171,7 +173,6 @@ def return_car(request, customerID, carID, carstatus): #FEILER I urls.py
             return Response(status=status.HTTP_400_BAD_REQUEST)
         car_serializer = CarSerializer(car)
         return Response(car_serializer.data, status = status.HTTP_200_OK)
-
 
 
 def homePageView(request):

@@ -31,9 +31,9 @@ urlpatterns = [
     path('delete_customer/<int:id>', delete_customer),
 
     path('order_car/<int:customerID>/<int:carID>/', order_car),
+    path('rent_car/<int:customerID>/<int:carID>/', rent_car),
     path('cancel_order_car/<int:customerID>/<int:carID>/', cancel_order_car),
-    path('rent_car/<int:customerID>/<int:carID>/', cancel_order_car),
-    path('rent_car/<int:customerID>/<int:carID>/<str:carstatus>/', cancel_order_car), #FUNKER IKKE
+    path('return_car/<int:customerID>/<int:carID>/<slug:carstatus>/', return_car),
     
     path("", homePageView, name="home"),
 ]
