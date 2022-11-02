@@ -1,2 +1,0 @@
-SSH: git@github.com:ingunnnaevdal/info212---oblig4.git
-HTTPS: https://github.com/ingunnnaevdal/info212---oblig4.git
