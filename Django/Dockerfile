@@ -6,10 +6,9 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN pyton3 manage.py makemigrations mysite
-RUN python3 manage.py migrate
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN python manage.py makemigrations mysite
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
