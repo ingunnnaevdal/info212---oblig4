@@ -12,3 +12,5 @@ COPY . .
 
 RUN python manage.py makemigrations mysite
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# legg det her

@@ -29,6 +29,7 @@ build:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./Dockerfile
+        file: /info212---oblig4/.github
+
         push: true
         tags: ${{secrets.DOCKERHUB_USERNAME}}/django-docker:latest
