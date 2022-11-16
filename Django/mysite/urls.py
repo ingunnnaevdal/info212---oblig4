@@ -39,5 +39,3 @@ urlpatterns = [
 ]
 
 
-#prøver å pushe
-
