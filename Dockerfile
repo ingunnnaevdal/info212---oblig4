@@ -11,6 +11,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 RUN python manage.py makemigrations mysite
+RUN python3 manage.py migrate
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 # legg det her
